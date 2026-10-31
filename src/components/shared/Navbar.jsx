@@ -1,34 +1,27 @@
 import Link from 'next/link';
-import React from 'react';
 import Image from 'next/image';
 import userAvatar from '@/assets/user.png';
 import NavLink from './NavLink';
+import BrandLogo from './BrandLogo';
 
 const Navbar = () => {
     return (
-        <div className='flex justify-between items-center px-44 py-2 '>
-            <div>
-                <h1 className='text-2xl font-bold text-blue-300 hover:text-blue-600'>News Portal</h1>
+        <nav aria-label="Main navigation" className="border-b border-slate-200 bg-white">
+            <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 py-3 sm:px-6">
+                <div className="hidden sm:block"><BrandLogo compact /></div>
+                <ul className="flex items-center gap-3 text-xs font-medium sm:gap-7 sm:text-sm">
+                    <li className="hover:text-indigo-700"><NavLink href="/">Home</NavLink></li>
+                    <li className="hover:text-indigo-700"><NavLink href="/about">About</NavLink></li>
+                    <li className="hover:text-indigo-700"><NavLink href="/career">Career</NavLink></li>
+                </ul>
+                <div className="flex items-center gap-3">
+                    <Image src={userAvatar} alt="" width={36} height={36} className="hidden rounded-full sm:block" />
+                    <Link href="/login" className="rounded-full bg-indigo-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700">
+                        Sign in
+                    </Link>
+                </div>
             </div>
-            <ul className='flex justify-center gap-5 py-5 '>
-                <li className='hover:text-blue-500 hover:underline'><NavLink href="/"> Home</NavLink></li>
-                <li className='hover:text-blue-500 hover:underline'><NavLink href="/about">About</NavLink></li>
-                <li className='hover:text-blue-500 hover:underline'><NavLink href="/career">Career</NavLink></li>
-            </ul>
-
-
-<div className='flex items-center'>
-
-<Image src={userAvatar} alt="User Avatar" width={50} height={50} className='rounded-full'/>
-<button  className='btn bg-blue-500 text-white border-0 rounded-none hover:bg-blue-700 hover:text-white ml-4'>
-<Link href={'/login'}>Login</Link>
-</button>
-
-
-</div>
-
-
-        </div>
+        </nav>
     );
 };
 

@@ -3,6 +3,13 @@ import LeftSidebar from '@/components/homepage/news/LeftSidebar';
 import RightSidebar from '@/components/homepage/news/RightSidebar';
 import { getdata, getdataByCategory } from '@/lib/data';
 import NewsCard from '@/components/homepage/news/NewsCard';
+import PageLoader from '@/components/shared/PageLoader';
+
+export const metadata = {
+    title: 'News Category',
+    description: 'This is the news category page of our website.',
+};
+
 
 const NewsCategoryContent = async ({ params }) => {
     const { id } = await params;
@@ -58,19 +65,7 @@ const NewsCategoryContent = async ({ params }) => {
 };
 
 const NewsCategoryPage = ({ params }) => (
-    <Suspense
-        fallback={
-            <main className="mx-auto my-10 grid w-full max-w-[1440px] grid-cols-1 gap-8 px-4 sm:px-6 lg:my-14 lg:grid-cols-12 lg:gap-8" aria-label="Loading news">
-                <div className="h-72 animate-pulse rounded-2xl bg-slate-100 lg:col-span-2" />
-                <div className="space-y-6 lg:col-span-7">
-                    <div className="h-20 animate-pulse rounded-2xl bg-slate-100" />
-                    <div className="h-[28rem] animate-pulse rounded-2xl bg-slate-100" />
-                    <div className="h-[28rem] animate-pulse rounded-2xl bg-slate-100" />
-                </div>
-                <div className="h-72 animate-pulse rounded-2xl bg-slate-100 lg:col-span-3" />
-            </main>
-        }
-    >
+    <Suspense fallback={<PageLoader message="Finding the latest headlines" />}>
         <NewsCategoryContent params={params} />
     </Suspense>
 );
