@@ -1,4 +1,5 @@
 import { Montserrat, Poppins } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
     >
       <body className={`${poppins.className} min-h-full flex flex-col`}>
         {children}
+        <Toaster position="top-right" />
       </body>
     </html>
   );
