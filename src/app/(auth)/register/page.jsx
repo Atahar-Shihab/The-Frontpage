@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { authClient } from '@/lib/auth-client';
 import toast from 'react-hot-toast';
@@ -8,9 +8,10 @@ const RegisterPage = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
 
-    const handleRegister = async (data) => {
-        const { name, photoUrl, email, password } = data;
+    const [isShowingPassword, setIsShowingPassword] = useState(false);
 
+    const handleRegister = async (data) => {
+                        const { name, photoUrl, email, password } = data;
 
         const {data: res, error} = await authClient.signUp.email({
             name: name, // required, The name of the user.
@@ -55,8 +56,11 @@ const RegisterPage = () => {
                 </fieldset>
                 <fieldset className="fieldset">
                     <legend className="fieldset-legend">Password</legend>
-                    <input {...register("password", { required: "Password is required" })} type="password" className="input" placeholder="Type your password" />
+                    <input {...register("password", { required: "Password is required" })} type={isShowingPassword ? "text" : "password"} className="input" placeholder="Type your password" />
                     <p className="text-red-500">{errors.password?.message}</p>
+                    <button type="button" className="text-sm text-blue-500 hover:underline" onClick={() => setIsShowingPassword(!isShowingPassword)}>
+                        {isShowingPassword ? "Hide" : "Show"} Password
+                    </button>
                     <button className='btn btn-primary w-full mt-4'  >Register</button>
                 </fieldset>
             </form>

@@ -1,12 +1,13 @@
 'use client';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { authClient } from '@/lib/auth-client';
 const LoginPage = () => {
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
+    const [isShowingPassword, setIsShowingPassword] = useState(false);
     const handleLogin = async (data) => {
         console.log(data);
         console.log(errors);
@@ -34,7 +35,10 @@ const LoginPage = () => {
                 </fieldset>
                 <fieldset className="fieldset">
                     <legend className="fieldset-legend">Password</legend>
-                    <input {...register("password", { required: "Password is required" })} type="password" className="input" placeholder="Type your password" />
+                    <input {...register("password", { required: "Password is required" })} type={isShowingPassword ? "text" : "password"} className="input" placeholder="Type your password" />
+                    <button type="button" className="text-sm text-blue-500 hover:underline" onClick={() => setIsShowingPassword(!isShowingPassword)}>
+                        {isShowingPassword ? "Hide" : "Show"} Password
+                    </button>
                     <p className="text-red-500">{errors.password?.message}</p>
                     <button className='btn btn-primary w-full mt-4'  >Login</button>
                 </fieldset>
